@@ -11,7 +11,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140514235738) do
+ActiveRecord::Schema.define(version: 20140515005512) do
+
+  create_table "answers", force: true do |t|
+    t.text     "content"
+    t.string   "correct"
+    t.integer  "question_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id"
+
+  create_table "questions", force: true do |t|
+    t.text     "content"
+    t.integer  "quiz_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "questions", ["quiz_id"], name: "index_questions_on_quiz_id"
+
+  create_table "quiz_users", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "quizz_id"
+    t.integer  "score"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "quiz_users", ["quizz_id"], name: "index_quiz_users_on_quizz_id"
+  add_index "quiz_users", ["user_id"], name: "index_quiz_users_on_user_id"
+
+  create_table "quizzes", force: true do |t|
+    t.string   "name"
+    t.integer  "topic_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "quizzes", ["topic_id"], name: "index_quizzes_on_topic_id"
+
+  create_table "topics", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email"
